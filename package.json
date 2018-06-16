@@ -4,8 +4,8 @@
   "description": "Store management system",
   "main": "app.js",
   "scripts": {
-    "start":"node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "grunt test"
   },
   "author": "Sathish G.",
   "license": "ISC",
@@ -14,7 +14,11 @@
     "express": "^4.16.3",
     "mongoose": "^5.1.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-mocha-test": "^0.13.3",
+    "mocha": "^5.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SathishGajendran/store-management-system.git"

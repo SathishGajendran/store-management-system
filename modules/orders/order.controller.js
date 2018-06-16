@@ -54,7 +54,8 @@ exports.createOrder = function (args, callback) {
         customerAddress: args.customerAddress,
         item: args.item,
         price: args.price,
-        currency: args.currency
+        currency: args.currency,
+        delivered: false
     };
     let newOrder = new OrderModel(orderData);
     newOrder.save(function (err, data) {
@@ -168,4 +169,38 @@ exports.getListByItemAndCount = function (args, callback) {
             }
             callback(response);
         })
-}
+};
+
+/**
+ * @name getAllBoughtOrdersByCustomerId
+ * @description It is used to handle get all bought orders by customerId.
+ * @return orders
+ */
+exports.getAllBoughtOrdersByCustomerId = function (args, callback) {
+    let offset = parseInt(args.offset) || 0;
+    let limit = parseInt(args.limit) || 10;
+    OrderModel
+        .find({
+            customerId : args.customerId,
+            delivered: true
+        }, {
+            _id: 0
+        })
+        .skip(offset)
+        .limit(limit)
+        .exec(function (err, data) {
+            let response = {
+                offset: offset,
+                limit: limit
+            };
+            if (err) {
+                response.code = 400;
+                response.status = "error";
+            } else {
+                response.code = 200;
+                response.status = "success";
+                response.data = data.length ? data:"No data found";
+            }
+            callback(response);
+        });
+};

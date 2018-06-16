@@ -77,5 +77,16 @@ orderRoutes.get('/listitem', function (req, res) {
     });
 });
 
+/**
+ * @name getAllBoughtOrdersByCustomerId
+ * @description It is used to get all bought orders by customer id.
+ * @return orders
+ */
+orderRoutes.get('/all/:customerId', function (req, res) {
+    req.query.customerId = req.params.customerId;
+    orderController.getAllBoughtOrdersByCustomerId(req.query,function(data){
+        res.status(data.code).send(data);
+    });
+});
 
 module.exports = orderRoutes;
